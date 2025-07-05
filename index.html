@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Hello Site</title>
+  <style>
+    body {
+      background: black;
+      color: #00FF00;
+      font-family: "Courier New", Courier, monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      user-select: none;
+      font-size: 3rem;
+    }
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      background-color: #00FF00;
+      margin-left: 5px;
+      animation: blink 1s infinite;
+      vertical-align: bottom;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      50.01%, 100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal">Loading<span class="cursor"></span></div>
+
+  <script>
+    async function fetchMessage() {
+      try {
+        const res = await fetch('/api/message');
+        const data = await res.json();
+        document.getElementById('terminal').innerHTML = `deface@hacked:~$ ${data.text}<span class="cursor"></span>`;
+      } catch (e) {
+        document.getElementById('terminal').textContent = 'Error loading message';
+      }
+    }
+    fetchMessage();
+    setInterval(fetchMessage, 5000); // co 5s odświeżenie, żeby zmiany były na żywo
+  </script>
+</body>
+</html>
