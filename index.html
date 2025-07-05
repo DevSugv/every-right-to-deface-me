@@ -39,7 +39,7 @@
       try {
         const res = await fetch('/api/message');
         const data = await res.json();
-        document.getElementById('terminal').innerHTML = `deface@hacked:~$ ${data.text}<span class="cursor"></span>`;
+        document.getElementById('terminal').innerHTML = `${data.text}<span class="cursor"></span>`;
       } catch (e) {
         document.getElementById('terminal').textContent = 'Error loading message';
       }
